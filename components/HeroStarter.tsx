@@ -56,7 +56,7 @@ export default function HeroStarter() {
 
         {/* SUBTITLU */}
         <p
-          className="hero-subtitle text-xl md:text-2xl lg:text-3xl mb-8 text-white/90 font-light tracking-wide"
+          className="hero-subtitle text-3xl md:text-4xl lg:text-5xl mb-8 text-white/90 font-bold tracking-wide"
           style={{ textShadow: '0 2px 12px rgba(0,0,0,0.5)' }}
         >
           Nu servim cafea. Creăm momente.
