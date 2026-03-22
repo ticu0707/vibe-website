@@ -96,6 +96,7 @@ export default function HeroStarter() {
       <button
         onClick={scrollDown}
         className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 text-white/75 hover:text-white transition-colors duration-300 animate-bounce"
+        style={{ color: '#39FF14', filter: 'drop-shadow(0 0 8px #39FF14)' }}
         aria-label="Scroll în jos"
       >
         <svg
