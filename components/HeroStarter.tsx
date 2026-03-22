@@ -31,7 +31,15 @@ export default function HeroStarter() {
         .hero-title    { animation: fadeInUp 0.7s ease-out 0.5s both; }
         .hero-subtitle { animation: fadeInUp 0.7s ease-out 0.8s both; }
         .hero-buttons  { animation: fadeInUp 0.7s ease-out 1.1s both; }
-        .hero-scroll   { animation: fadeInUp 0.7s ease-out 1.5s both; }
+
+        @keyframes scrollPulse {
+          0%, 100% { transform: translateX(-50%) translateY(0);    opacity: 1;   }
+          50%       { transform: translateX(-50%) translateY(10px); opacity: 0.3; }
+        }
+        .hero-scroll {
+          animation: fadeInUp 0.7s ease-out 1.5s both,
+                     scrollPulse 1.5s ease-in-out 2.3s infinite;
+        }
       `}</style>
 
       {/* IMAGINE FUNDAL */}
@@ -110,7 +118,7 @@ export default function HeroStarter() {
       {/* SCROLL INDICATOR */}
       <button
         onClick={scrollDown}
-        className="hero-scroll absolute bottom-8 left-1/2 -translate-x-1/2 text-white/75 hover:text-white transition-colors duration-300 animate-bounce"
+        className="hero-scroll absolute bottom-8 left-1/2 transition-colors duration-300"
         style={{ color: '#39FF14', filter: 'drop-shadow(0 0 8px #39FF14)' }}
         aria-label="Scroll în jos"
       >
