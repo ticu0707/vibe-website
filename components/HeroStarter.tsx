@@ -68,7 +68,7 @@ export default function HeroStarter() {
           {/* BUTON 1 - Primary */}
           <button
             onClick={() => scrollToSection('menu')}
-            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-full border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
           >
             Vezi Meniul
           </button>
@@ -76,7 +76,7 @@ export default function HeroStarter() {
           {/* BUTON 2 - Secondary */}
           <a
             href="#locatie"
-            className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/10"
+            className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/10"
           >
             Vizitează-ne
           </a>
@@ -84,7 +84,7 @@ export default function HeroStarter() {
           {/* BUTON 3 - Tertiary */}
           <a
             href="#pickup"
-            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-lg border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-full border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
           >
             Comandă Pickup
           </a>
