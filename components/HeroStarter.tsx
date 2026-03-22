@@ -68,7 +68,12 @@ export default function HeroStarter() {
           {/* BUTON 1 - Primary */}
           <button
             onClick={() => scrollToSection('menu')}
-            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-full border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 active:translate-y-1 text-white font-semibold rounded-full border-2 border-white transition-all duration-150"
+            style={{ boxShadow: '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)' }}
+            onMouseOver={e => (e.currentTarget.style.boxShadow = '0 4px 0 #92400e, 0 6px 10px rgba(0,0,0,0.4)')}
+            onMouseOut={e => (e.currentTarget.style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
+            onMouseDown={e => (e.currentTarget.style.boxShadow = '0 1px 0 #92400e')}
+            onMouseUp={e => (e.currentTarget.style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
           >
             Vezi Meniul
           </button>
@@ -76,7 +81,12 @@ export default function HeroStarter() {
           {/* BUTON 2 - Secondary */}
           <a
             href="#locatie"
-            className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:bg-white/10"
+            className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full transition-all duration-150 hover:bg-white/10 active:translate-y-1"
+            style={{ boxShadow: '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)' }}
+            onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 rgba(255,255,255,0.3), 0 6px 10px rgba(0,0,0,0.3)')}
+            onMouseOut={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)')}
+            onMouseDown={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 1px 0 rgba(255,255,255,0.3)')}
+            onMouseUp={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)')}
           >
             Vizitează-ne
           </a>
@@ -84,7 +94,12 @@ export default function HeroStarter() {
           {/* BUTON 3 - Tertiary */}
           <a
             href="#pickup"
-            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-full border-2 border-white transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 active:translate-y-1 text-white font-semibold rounded-full border-2 border-white transition-all duration-150"
+            style={{ boxShadow: '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)' }}
+            onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 #92400e, 0 6px 10px rgba(0,0,0,0.4)')}
+            onMouseOut={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
+            onMouseDown={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 1px 0 #92400e')}
+            onMouseUp={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
           >
             Comandă Pickup
           </a>
