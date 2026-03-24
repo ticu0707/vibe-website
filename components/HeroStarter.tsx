@@ -101,7 +101,7 @@ export default function HeroStarter() {
 
           {/* BUTON 3 - Tertiary */}
           <a
-            href="#pickup"
+            href="/rezervari"
             className="px-8 py-4 bg-amber-600 hover:bg-amber-500 active:translate-y-1 text-white font-semibold rounded-full border-2 border-white transition-all duration-150"
             style={{ boxShadow: '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)' }}
             onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 #92400e, 0 6px 10px rgba(0,0,0,0.4)')}
@@ -109,7 +109,7 @@ export default function HeroStarter() {
             onMouseDown={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 1px 0 #92400e')}
             onMouseUp={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
           >
-            Comandă Pickup
+            Rezervă
           </a>
 
         </div>
