@@ -42,12 +42,16 @@ export default function HeroStarter() {
         }
       `}</style>
 
-      {/* IMAGINE FUNDAL */}
-      <img
-        src="https://images.unsplash.com/photo-1546863144-358a422ce763?w=1920&auto=format&fit=crop&q=80"
-        alt="Cafea preparată artistic"
+      {/* VIDEO FUNDAL */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
         className="absolute inset-0 w-full h-full object-cover"
-      />
+      >
+        <source src="/hero.mp4" type="video/mp4" />
+      </video>
       {/* OVERLAY semi-transparent */}
       <div className="absolute inset-0 bg-black/50" />
 
