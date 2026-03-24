@@ -88,7 +88,9 @@ export default function HeroStarter() {
 
           {/* BUTON 2 - Secondary */}
           <a
-            href="#locatie"
+            href="https://maps.google.com/?q=Strada+Cafelei+7,+București"
+            target="_blank"
+            rel="noopener noreferrer"
             className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full transition-all duration-150 hover:bg-white/10 active:translate-y-1"
             style={{ boxShadow: '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)' }}
             onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 rgba(255,255,255,0.3), 0 6px 10px rgba(0,0,0,0.3)')}
