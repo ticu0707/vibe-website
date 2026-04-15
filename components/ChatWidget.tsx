@@ -286,8 +286,23 @@ export default function ChatWidget() {
       {/* ── BUTON FLOATING ────────────────────────────────────────────────── */}
       <button
         onClick={() => setDeschis(prev => !prev)}
-        className={`fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-full bg-amber-600 hover:bg-amber-500 flex items-center justify-center transition-all duration-300 active:scale-95 relative ${!deschis ? 'chat-pulse' : ''}`}
-        style={{ boxShadow: '0 8px 24px rgba(0,0,0,0.4)' }}
+        className={`chat-pulse-btn ${!deschis ? 'chat-pulse' : ''}`}
+        style={{
+          position: 'fixed',
+          bottom: '24px',
+          right: '24px',
+          zIndex: 9999,
+          width: '56px',
+          height: '56px',
+          borderRadius: '50%',
+          backgroundColor: '#d97706',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          border: 'none',
+          boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+        }}
         aria-label={deschis ? 'Închide chat' : 'Deschide chat Barista Bot'}
       >
         {deschis ? (
