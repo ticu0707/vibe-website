@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 
 // Time slots 10:00 - 22:00, every 30 min
 const TIME_SLOTS: string[] = []
@@ -318,10 +319,16 @@ export default function RezervariPage() {
               <h2 className="text-2xl font-bold text-white mb-2">Rezervare confirmată!</h2>
               <p className="text-white/60 mb-1">{selectedDate && formatDateDisplay(selectedDate)} · {selectedTime}</p>
               <p className="text-white/60 mb-6">Vei primi o confirmare pe email.</p>
-              <button onClick={resetForm}
-                className="px-6 py-3 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-xl transition-all">
-                Rezervare nouă
-              </button>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <button onClick={resetForm}
+                  className="px-6 py-3 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-xl transition-all">
+                  Rezervare nouă
+                </button>
+                <Link href="/"
+                  className="px-6 py-3 bg-white/10 hover:bg-white/20 text-white font-semibold rounded-xl transition-all">
+                  Pagina principală
+                </Link>
+              </div>
             </div>
           )}
 

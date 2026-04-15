@@ -80,13 +80,26 @@ function contineRezervare(text: string): boolean {
   return /rezerv/i.test(text);
 }
 
+interface ChipContextual {
+  label: string;
+  href?: string;  // dacă există, chipul e link de navigare
+}
+
 // Detectează contextul răspunsului și returnează chips contextuale
-function getChipsContextuale(text: string): string[] | null {
+function getChipsContextuale(text: string): ChipContextual[] | null {
   if (/meniu|cafea|espresso|cappuccino|latte|specialty|cold brew|desert|patiserie|recomand/i.test(text)) {
-    return ['Opțiuni vegane', 'Deserturi', 'Cafea rece'];
+    return [
+      { label: 'Produse vegane' },
+      { label: 'Deserturi',  href: '/?tab=Patiserie#menu' },
+      { label: 'Cafea rece', href: '/?tab=Cold+Brew#menu' },
+      { label: 'Rezervare',  href: '/rezervari' },
+    ];
   }
   if (/rezerv/i.test(text)) {
-    return ['Fă o rezervare', 'Program'];
+    return [
+      { label: 'F\u0103 o rezervare', href: '/rezervari' },
+      { label: 'Program' },
+    ];
   }
   return null;
 }
@@ -132,7 +145,7 @@ export default function ChatWidget() {
   const [input, setInput]               = useState('');
   const [seIncarca, setSeIncarca]       = useState(false);
   const [chipsAfisate, setChipsAfisate] = useState(true);
-  const [chipsContextuale, setChipsContextuale] = useState<string[] | null>(null);
+  const [chipsContextuale, setChipsContextuale] = useState<ChipContextual[] | null>(null);
   // #2 — Badge mesaje necitite
   const [mesajeNecitite, setMesajeNecitite] = useState(0);
 
@@ -283,15 +296,15 @@ export default function ChatWidget() {
                 {/* Chips contextuale — doar sub ultimul mesaj al botului */}
                 {m.rol === 'bot' && i === mesaje.length - 1 && chipsContextuale && (
                   <div className="flex flex-wrap gap-2 pt-1 mt-1.5">
-                    {chipsContextuale.map(chip => (
-                      <button
-                        key={chip}
-                        onClick={() => trimite(chip)}
-                        className="px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95"
-                      >
-                        {chip}
-                      </button>
-                    ))}
+                    {chipsContextuale.map(({ label, href }) => {
+                      const chipClass = "px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95";
+                      if (href) return (
+                        <Link key={label} href={href} className={chipClass}>{label}</Link>
+                      );
+                      return (
+                        <button key={label} onClick={() => trimite(label)} className={chipClass}>{label}</button>
+                      );
+                    })}
                   </div>
                 )}
               </div>

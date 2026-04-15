@@ -5,7 +5,8 @@
  * Tab-uri cu imagini Unsplash + hover effects + smooth fade transition
  */
 
-import { useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 
 const menu = {
   Espresso: [
@@ -45,9 +46,20 @@ const menu = {
 type Category = keyof typeof menu;
 const categories = Object.keys(menu) as Category[];
 
-export default function MenuStarter() {
-  const [activeTab, setActiveTab] = useState<Category>('Espresso');
+function MenuContent() {
+  const searchParams = useSearchParams();
+  const tabParam = searchParams.get('tab') as Category | null;
+  const initialTab: Category = tabParam && categories.includes(tabParam as Category) ? tabParam as Category : 'Espresso';
+
+  const [activeTab, setActiveTab] = useState<Category>(initialTab);
   const [visible, setVisible] = useState(true);
+
+  useEffect(() => {
+    const tab = searchParams.get('tab') as Category | null;
+    if (tab && categories.includes(tab)) {
+      setActiveTab(tab);
+    }
+  }, [searchParams]);
 
   const switchTab = (cat: Category) => {
     if (cat === activeTab) return;
@@ -129,5 +141,13 @@ export default function MenuStarter() {
 
       </div>
     </section>
+  );
+}
+
+export default function MenuStarter() {
+  return (
+    <Suspense>
+      <MenuContent />
+    </Suspense>
   );
 }
