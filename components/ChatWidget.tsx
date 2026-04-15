@@ -40,6 +40,11 @@ const STYLES = `
   .dot3 { animation: dotBounce 1.2s infinite 0.4s; }
   .badge-pop { animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 
+  /* Ascunde butonul floating pe mobil când chat-ul e deschis */
+  @media (max-width: 639px) {
+    .chat-float-hidden { display: none !important; }
+  }
+
   /* Chat window: full screen pe mobil, floating pe desktop */
   .chat-window {
     position: fixed;
@@ -281,6 +286,7 @@ export default function ChatWidget() {
                     <Link
                       href="/rezervari"
                       className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-amber-600 hover:bg-amber-500 text-white text-xs font-semibold rounded-xl transition-all active:scale-95"
+                      onClick={() => setDeschis(false)}
                     >
                       <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round">
                         <rect x="3" y="4" width="18" height="18" rx="2" />
@@ -299,7 +305,7 @@ export default function ChatWidget() {
                     {chipsContextuale.map(({ label, href }) => {
                       const chipClass = "px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95";
                       if (href) return (
-                        <Link key={label} href={href} className={chipClass}>{label}</Link>
+                        <Link key={label} href={href} className={chipClass} onClick={() => setDeschis(false)}>{label}</Link>
                       );
                       return (
                         <button key={label} onClick={() => trimite(label)} className={chipClass}>{label}</button>
@@ -370,7 +376,7 @@ export default function ChatWidget() {
       {/* ── BUTON FLOATING ────────────────────────────────────────────────── */}
       <button
         onClick={() => setDeschis(prev => !prev)}
-        className={`chat-pulse-btn ${!deschis ? 'chat-pulse' : ''}`}
+        className={`chat-pulse-btn ${!deschis ? 'chat-pulse' : 'chat-float-hidden'}`}
         style={{
           position: 'fixed',
           bottom: '24px',
