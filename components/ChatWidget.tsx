@@ -18,8 +18,8 @@ interface Mesaj {
 
 const STYLES = `
   @keyframes chatPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(217, 119, 6, 0.5); }
-    50%       { box-shadow: 0 0 0 12px rgba(217, 119, 6, 0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.5); }
+    50%       { box-shadow: 0 0 0 12px rgba(20, 184, 166, 0); }
   }
   @keyframes chatSlideIn {
     from { opacity: 0; transform: translateY(16px) scale(0.97); }
@@ -39,6 +39,28 @@ const STYLES = `
   .dot2 { animation: dotBounce 1.2s infinite 0.2s; }
   .dot3 { animation: dotBounce 1.2s infinite 0.4s; }
   .badge-pop { animation: badgePop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+
+  /* Chat window: full screen pe mobil, floating pe desktop */
+  .chat-window {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  @media (min-width: 640px) {
+    .chat-window {
+      inset: auto;
+      bottom: 96px;
+      right: 24px;
+      width: 390px;
+      max-width: 24rem;
+      height: 480px;
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+  }
 `;
 
 // ---------------------------------------------------------------------------
@@ -58,13 +80,45 @@ function contineRezervare(text: string): boolean {
   return /rezerv/i.test(text);
 }
 
-// #1 — Quick reply chips
-const CHIPS = [
-  'Ce recomandați?',
-  'Opțiuni vegane?',
-  'Program & locație',
-  'Fac o rezervare',
-];
+// Detectează contextul răspunsului și returnează chips contextuale
+function getChipsContextuale(text: string): string[] | null {
+  if (/meniu|cafea|espresso|cappuccino|latte|specialty|cold brew|desert|patiserie|recomand/i.test(text)) {
+    return ['Opțiuni vegane', 'Deserturi', 'Cafea rece'];
+  }
+  if (/rezerv/i.test(text)) {
+    return ['Fă o rezervare', 'Program'];
+  }
+  return null;
+}
+
+// #1 — Quick reply chips inițiale
+const CHIPS = ['Vezi meniu', 'Recomandări', 'Rezervări', 'Program'];
+
+// Curăță markdown brut (##, **, *) și redă link-urile ca elemente clickabile
+function renderMessage(text: string): React.ReactNode {
+  const cleaned = text
+    .replace(/#{1,6}\s+/g, '')           // ## Titlu → Titlu
+    .replace(/\*\*([^*]+)\*\*/g, '$1')   // **bold** → bold
+    .replace(/\*([^*]+)\*/g, '$1')        // *italic* → italic
+    .replace(/`([^`]+)`/g, '$1');         // `code` → code
+
+  const parts = cleaned.split(/(\[[^\]]+\]\([^)]+\))/g);
+  return parts.map((part, i) => {
+    const match = part.match(/\[([^\]]+)\]\(([^)]+)\)/);
+    if (match) {
+      return (
+        <Link
+          key={i}
+          href={match[2]}
+          className="underline text-amber-400 hover:text-amber-300 transition-colors"
+        >
+          {match[1]}
+        </Link>
+      );
+    }
+    return part;
+  });
+}
 
 // ---------------------------------------------------------------------------
 // COMPONENTA PRINCIPALĂ
@@ -78,6 +132,7 @@ export default function ChatWidget() {
   const [input, setInput]               = useState('');
   const [seIncarca, setSeIncarca]       = useState(false);
   const [chipsAfisate, setChipsAfisate] = useState(true);
+  const [chipsContextuale, setChipsContextuale] = useState<string[] | null>(null);
   // #2 — Badge mesaje necitite
   const [mesajeNecitite, setMesajeNecitite] = useState(0);
 
@@ -109,6 +164,7 @@ export default function ChatWidget() {
 
     setInput('');
     setChipsAfisate(false);
+    setChipsContextuale(null);
     setMesaje(prev => [...prev, { rol: 'user', text }]);
     setSeIncarca(true);
 
@@ -122,6 +178,7 @@ export default function ChatWidget() {
       const raspuns = json.raspuns ?? 'Îmi pare rău, a apărut o eroare. Încearcă din nou!';
 
       setMesaje(prev => [...prev, { rol: 'bot', text: raspuns }]);
+      setChipsContextuale(getChipsContextuale(raspuns));
 
       // #2 — Incrementăm badge dacă chat-ul e închis
       if (!deschis) setMesajeNecitite(prev => prev + 1);
@@ -153,25 +210,24 @@ export default function ChatWidget() {
       {/* ── FEREASTRA DE CHAT ─────────────────────────────────────────────── */}
       {deschis && (
         <div
-          className="chat-slidein fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col rounded-2xl overflow-hidden border border-white/20"
+          className="chat-slidein chat-window"
           style={{
-            height: '480px',
-            background: 'linear-gradient(160deg, #1c1917 0%, #0f2027 100%)',
-            boxShadow: '0 24px 64px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.08)',
+            background: 'linear-gradient(160deg, #0F172A 0%, #042F2E 100%)',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.7), 0 0 0 1px rgba(20,184,166,0.15)',
           }}
         >
           {/* HEADER */}
           <div
             className="flex items-center justify-between px-4 py-3 border-b border-white/10 shrink-0"
-            style={{ background: 'rgba(255,255,255,0.05)' }}
+            style={{ background: 'rgba(20,184,166,0.08)' }}
           >
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-amber-600 flex items-center justify-center text-lg shadow-md shrink-0">
+              <div className="w-9 h-9 rounded-full bg-teal-500 flex items-center justify-center text-lg shadow-md shrink-0">
                 ☕
               </div>
               <div>
                 <p className="text-white font-semibold text-sm leading-none">Barista Bot</p>
-                <p className="text-amber-400 text-xs mt-0.5">Vibe Caffè · online</p>
+                <p className="text-teal-300 text-xs mt-0.5">Vibe Caffè · online</p>
               </div>
             </div>
             <button
@@ -198,11 +254,11 @@ export default function ChatWidget() {
                   <div
                     className={`max-w-[80%] px-3 py-2 rounded-2xl text-sm leading-relaxed ${
                       m.rol === 'user'
-                        ? 'bg-teal-600 text-white rounded-br-sm'
+                        ? 'bg-amber-600 text-white rounded-br-sm'
                         : 'bg-white/95 text-gray-800 rounded-bl-sm shadow-md shadow-black/30'
                     }`}
                   >
-                    {m.text}
+                    {renderMessage(m.text)}
                   </div>
                 </div>
 
@@ -223,6 +279,21 @@ export default function ChatWidget() {
                     </Link>
                   </div>
                 )}
+
+                {/* Chips contextuale — doar sub ultimul mesaj al botului */}
+                {m.rol === 'bot' && i === mesaje.length - 1 && chipsContextuale && (
+                  <div className="flex flex-wrap gap-2 pt-1 mt-1.5">
+                    {chipsContextuale.map(chip => (
+                      <button
+                        key={chip}
+                        onClick={() => trimite(chip)}
+                        className="px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95"
+                      >
+                        {chip}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
 
@@ -233,7 +304,7 @@ export default function ChatWidget() {
                   <button
                     key={chip}
                     onClick={() => trimite(chip)}
-                    className="px-3 py-1.5 bg-white/10 hover:bg-amber-600/30 border border-white/20 hover:border-amber-500/50 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95"
+                    className="px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95"
                   >
                     {chip}
                   </button>
@@ -245,9 +316,9 @@ export default function ChatWidget() {
             {seIncarca && (
               <div className="flex justify-start">
                 <div className="bg-white/10 border border-white/10 px-4 py-3 rounded-2xl rounded-bl-sm flex gap-1.5 items-center">
-                  <span className="dot1 w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" />
-                  <span className="dot2 w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" />
-                  <span className="dot3 w-1.5 h-1.5 rounded-full bg-amber-400 inline-block" />
+                  <span className="dot1 w-1.5 h-1.5 rounded-full bg-teal-400 inline-block" />
+                  <span className="dot2 w-1.5 h-1.5 rounded-full bg-teal-400 inline-block" />
+                  <span className="dot3 w-1.5 h-1.5 rounded-full bg-teal-400 inline-block" />
                 </div>
               </div>
             )}
@@ -256,7 +327,7 @@ export default function ChatWidget() {
           {/* INPUT */}
           <div
             className="px-3 py-3 border-t border-white/10 flex gap-2 items-center shrink-0"
-            style={{ background: 'rgba(255,255,255,0.03)' }}
+            style={{ background: 'rgba(20,184,166,0.05)' }}
           >
             <input
               ref={inputRef}
@@ -266,12 +337,12 @@ export default function ChatWidget() {
               onKeyDown={handleKeyDown}
               placeholder="Scrie un mesaj..."
               disabled={seIncarca}
-              className="flex-1 bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-amber-500 transition-all disabled:opacity-50"
+              className="flex-1 bg-white/10 border border-white/20 rounded-xl px-3 py-2 text-sm text-white placeholder-white/30 focus:outline-none focus:border-teal-400 transition-all disabled:opacity-50"
             />
             <button
               onClick={() => trimite()}
               disabled={!input.trim() || seIncarca}
-              className="w-9 h-9 rounded-xl bg-amber-600 hover:bg-amber-500 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all active:scale-95 shrink-0"
+              className="w-9 h-9 rounded-xl bg-teal-500 hover:bg-teal-400 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center transition-all active:scale-95 shrink-0"
               aria-label="Trimite mesaj"
             >
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -295,7 +366,7 @@ export default function ChatWidget() {
           width: '56px',
           height: '56px',
           borderRadius: '50%',
-          backgroundColor: '#d97706',
+          backgroundColor: '#14B8A6',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',

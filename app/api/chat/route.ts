@@ -40,7 +40,7 @@ export async function POST(req: Request) {
 
     const response = await client.messages.create({
       model: 'claude-sonnet-4-5-20250929',
-      max_tokens: 200,
+      max_tokens: 350,
       system: KNOWLEDGE_BASE,
       messages: mesajeContext,
     });
