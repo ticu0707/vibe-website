@@ -62,35 +62,11 @@ export default function AboutStarter() {
             </p>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              Mă recunoști după lucruri mici: ceașca pusă pe masă, scaunul tras mai aproape, cheile lăsate lângă farfurioară, prima propoziție spusă din mers și a doua spusă deja mai încet.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
               Nu sunt aici ca să mă privești. Sunt aici ca să poți fi atent la cine ai în față.
             </p>
 
             <p className="text-gray-700 text-lg leading-relaxed">
-              Sunt multe locuri frumoase care te țin încordat. Te fac să stai prea drept, să vorbești prea jos, să simți că ești mai mult în trecere decât la masă. Eu n-am vrut asta.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
               De aceea tot ce ține de mine e făcut să nu intre între oameni: liniile sunt clare, lumina cade bine, mesele au destul loc între ele, nimic nu apasă pe privire. Nu ca să par impecabil, ci ca să nu-ți cer nimic.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
-              Să poți intra exact cum vii din ziua ta și, după câteva minute, să nu mai aduci toată graba cu tine.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
-              Mă înțelegi cel mai bine când vii cu cineva. Unul ajunge primul și își ține palmele în jurul ceștii. Celălalt intră cu un „scuze, am întârziat puțin", trage scaunul, mută paharul mai aproape și se așază.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
-              La început se vorbește despre drum, despre zi, despre ce mai e de făcut. După aceea, masa se schimbă. Vocile se așază. Râsul vine mai repede. Pauzele nu mai trebuie umplute. Nimeni nu se mai uită la ceas din zece în zece minute.
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed">
-              Aici nu contează doar ce e în ceașcă. Contează că, în jurul ei, oamenii ajung să stea unii cu alții mai bine decât au venit.
             </p>
 
             <p className="text-gray-700 text-lg leading-relaxed">
@@ -99,10 +75,6 @@ export default function AboutStarter() {
 
             <p className="text-gray-700 text-lg leading-relaxed">
               Eu nu vreau să te pun în poză. Vreau să te pun bine la masă. Iar dacă pleci mai târziu decât ți-ai propus, e semn bun. Înseamnă că n-ai trecut pe aici. <strong>Ai stat.</strong>
-            </p>
-
-            <p className="text-gray-700 text-lg leading-relaxed italic">
-              Și uneori asta se vede simplu: în două cești goale, uitate pe masă, și în nimeni care nu se grăbește încă să le împingă spre margine.
             </p>
 
             {/* STATISTICI */}

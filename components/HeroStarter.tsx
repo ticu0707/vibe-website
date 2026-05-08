@@ -92,9 +92,7 @@ export default function HeroStarter() {
 
           {/* BUTON 2 - Secondary */}
           <a
-            href="https://maps.google.com/?q=Strada+Cafelei+7,+București"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/rezervari"
             className="px-8 py-4 bg-transparent border-2 border-white text-white font-semibold rounded-full transition-all duration-150 hover:bg-white/10 active:translate-y-1"
             style={{ boxShadow: '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)' }}
             onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 rgba(255,255,255,0.3), 0 6px 10px rgba(0,0,0,0.3)')}
@@ -102,20 +100,7 @@ export default function HeroStarter() {
             onMouseDown={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 1px 0 rgba(255,255,255,0.3)')}
             onMouseUp={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 rgba(255,255,255,0.3), 0 8px 12px rgba(0,0,0,0.3)')}
           >
-            Vizitează-ne
-          </a>
-
-          {/* BUTON 3 - Tertiary */}
-          <a
-            href="/rezervari"
-            className="px-8 py-4 bg-amber-600 hover:bg-amber-500 active:translate-y-1 text-white font-semibold rounded-full border-2 border-white transition-all duration-150"
-            style={{ boxShadow: '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)' }}
-            onMouseOver={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 4px 0 #92400e, 0 6px 10px rgba(0,0,0,0.4)')}
-            onMouseOut={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
-            onMouseDown={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 1px 0 #92400e')}
-            onMouseUp={e => ((e.currentTarget as HTMLElement).style.boxShadow = '0 6px 0 #92400e, 0 8px 12px rgba(0,0,0,0.4)')}
-          >
-            Rezervă
+            Rezervă un loc
           </a>
 
         </div>
@@ -124,8 +109,7 @@ export default function HeroStarter() {
       {/* SCROLL INDICATOR */}
       <button
         onClick={scrollDown}
-        className="hero-scroll absolute bottom-8 left-1/2 transition-colors duration-300"
-        style={{ color: '#39FF14', filter: 'drop-shadow(0 0 8px #39FF14)' }}
+        className="hero-scroll absolute bottom-8 left-1/2 text-white/70 hover:text-white transition-colors duration-300"
         aria-label="Scroll în jos"
       >
         <svg

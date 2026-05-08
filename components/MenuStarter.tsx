@@ -111,7 +111,7 @@ function MenuContent() {
           {menu[activeTab].map((item) => (
             <div
               key={item.name}
-              className="group bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer"
+              className="group bg-gray-50 rounded-2xl border border-gray-100 overflow-hidden hover:shadow-md transition-all duration-300"
             >
               {/* IMAGINE */}
               <div className="aspect-[4/3] overflow-hidden">

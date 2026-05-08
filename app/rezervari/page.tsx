@@ -123,13 +123,13 @@ export default function RezervariPage() {
   const calendarDays = getCalendarDays(calendarYear, calendarMonth)
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-teal-950 to-gray-900 flex items-center justify-center p-4 py-16">
+    <main className="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 flex items-center justify-center p-4 py-16">
       <div className="w-full max-w-lg">
 
         {/* Header */}
         <div className="text-center mb-8">
           <h1 className="text-4xl font-bold text-white mb-2">Rezervă o masă</h1>
-          <p className="text-teal-300">Vibe Caffè · Experiență autentică</p>
+          <p className="text-amber-400">Vibe Caffè · Experiență autentică</p>
         </div>
 
         {/* Step indicator */}
@@ -138,13 +138,13 @@ export default function RezervariPage() {
             {[1, 2, 3].map((s) => (
               <div key={s} className="flex items-center gap-2">
                 <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold transition-all ${
-                  step === s ? 'bg-teal-500 text-white scale-110' :
-                  (typeof step === 'number' && step > s) ? 'bg-teal-700 text-teal-200' :
+                  step === s ? 'bg-amber-600 text-white scale-110' :
+                  (typeof step === 'number' && step > s) ? 'bg-amber-800 text-amber-200' :
                   'bg-white/10 text-white/40'
                 }`}>
                   {typeof step === 'number' && step > s ? '✓' : s}
                 </div>
-                {s < 3 && <div className={`w-12 h-0.5 transition-all ${typeof step === 'number' && step > s ? 'bg-teal-500' : 'bg-white/20'}`} />}
+                {s < 3 && <div className={`w-12 h-0.5 transition-all ${typeof step === 'number' && step > s ? 'bg-amber-600' : 'bg-white/20'}`} />}
               </div>
             ))}
           </div>
@@ -167,7 +167,7 @@ export default function RezervariPage() {
                       key={date.toISOString()}
                       onClick={() => selectDate(date)}
                       className={`flex-shrink-0 flex flex-col items-center px-3 py-2 rounded-xl border transition-all text-sm ${
-                        isSelected ? 'bg-teal-500 border-teal-400 text-white' : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20'
+                        isSelected ? 'bg-amber-600 border-amber-500 text-white' : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20'
                       }`}
                     >
                       <span className="text-xs opacity-70">{DAY_SHORT[date.getDay()]}</span>
@@ -210,8 +210,8 @@ export default function RezervariPage() {
                         onClick={() => !disabled && selectDate(date)}
                         disabled={disabled}
                         className={`aspect-square rounded-lg text-sm font-medium transition-all ${
-                          isSelected ? 'bg-teal-500 text-white' :
-                          isTodayDate ? 'bg-orange-500/30 text-orange-300 hover:bg-orange-500/50' :
+                          isSelected ? 'bg-amber-600 text-white' :
+                          isTodayDate ? 'ring-1 ring-amber-400 text-amber-300 hover:bg-white/10' :
                           disabled ? 'text-white/20 cursor-not-allowed' :
                           isCurrentMonth ? 'text-white hover:bg-white/20' :
                           'text-white/30'
@@ -225,7 +225,7 @@ export default function RezervariPage() {
               </div>
 
               <button onClick={() => selectedDate && setStep(2)} disabled={!selectedDate}
-                className="mt-6 w-full py-3 bg-teal-500 hover:bg-teal-400 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all">
+                className="mt-6 w-full py-3 bg-amber-600 hover:bg-amber-500 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all">
                 {selectedDate ? `Continuă → ${formatDateDisplay(selectedDate)}` : 'Selectează o dată'}
               </button>
             </div>
@@ -234,7 +234,7 @@ export default function RezervariPage() {
           {/* ── STEP 2: ORA ── */}
           {step === 2 && (
             <div>
-              <button onClick={() => setStep(1)} className="text-teal-400 hover:text-teal-300 text-sm mb-4 flex items-center gap-1">
+              <button onClick={() => setStep(1)} className="text-amber-400 hover:text-amber-300 text-sm mb-4 flex items-center gap-1">
                 ← {selectedDate && formatDateDisplay(selectedDate)}
               </button>
               <h2 className="text-xl font-semibold text-white mb-4">Alege ora</h2>
@@ -243,7 +243,7 @@ export default function RezervariPage() {
                 {TIME_SLOTS.map((time) => (
                   <button key={time} onClick={() => setSelectedTime(time)}
                     className={`py-2.5 rounded-xl text-sm font-medium transition-all border ${
-                      selectedTime === time ? 'bg-teal-500 border-teal-400 text-white' : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20'
+                      selectedTime === time ? 'bg-amber-600 border-amber-500 text-white' : 'bg-white/10 border-white/20 text-white/80 hover:bg-white/20'
                     }`}>
                     {time}
                   </button>
@@ -251,7 +251,7 @@ export default function RezervariPage() {
               </div>
 
               <button onClick={() => selectedTime && setStep(3)} disabled={!selectedTime}
-                className="mt-6 w-full py-3 bg-teal-500 hover:bg-teal-400 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all">
+                className="mt-6 w-full py-3 bg-amber-600 hover:bg-amber-500 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all">
                 {selectedTime ? `Continuă → ${selectedTime}` : 'Selectează o oră'}
               </button>
             </div>
@@ -260,7 +260,7 @@ export default function RezervariPage() {
           {/* ── STEP 3: DETALII ── */}
           {step === 3 && (
             <form onSubmit={handleSubmit}>
-              <button type="button" onClick={() => setStep(2)} className="text-teal-400 hover:text-teal-300 text-sm mb-4 flex items-center gap-1">
+              <button type="button" onClick={() => setStep(2)} className="text-amber-400 hover:text-amber-300 text-sm mb-4 flex items-center gap-1">
                 ← {selectedDate && formatDateDisplay(selectedDate)} · {selectedTime}
               </button>
               <h2 className="text-xl font-semibold text-white mb-4">Detaliile tale</h2>
@@ -268,15 +268,15 @@ export default function RezervariPage() {
               <div className="space-y-3">
                 <input type="text" placeholder="Nume complet" required
                   value={formData.nume} onChange={(e) => setFormData({ ...formData, nume: e.target.value })}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-teal-400 transition-all" />
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-amber-500 transition-all" />
 
                 <input type="email" placeholder="Email" required
                   value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-teal-400 transition-all" />
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-amber-500 transition-all" />
 
                 <input type="tel" placeholder="Telefon" required
                   value={formData.telefon} onChange={(e) => setFormData({ ...formData, telefon: e.target.value })}
-                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-teal-400 transition-all" />
+                  className="w-full bg-white/10 border border-white/20 rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none focus:border-amber-500 transition-all" />
 
                 {/* Guests */}
                 <div className="bg-white/10 border border-white/20 rounded-xl px-4 py-3 flex items-center justify-between">
@@ -284,11 +284,11 @@ export default function RezervariPage() {
                   <div className="flex items-center gap-3">
                     <button type="button"
                       onClick={() => setFormData({ ...formData, numar_persoane: Math.max(1, formData.numar_persoane - 1) })}
-                      className="w-8 h-8 rounded-lg bg-white/20 text-white hover:bg-teal-500 transition-all font-bold">−</button>
+                      className="w-8 h-8 rounded-lg bg-white/20 text-white hover:bg-amber-600 transition-all font-bold">−</button>
                     <span className="text-white font-bold w-4 text-center">{formData.numar_persoane}</span>
                     <button type="button"
                       onClick={() => setFormData({ ...formData, numar_persoane: Math.min(12, formData.numar_persoane + 1) })}
-                      className="w-8 h-8 rounded-lg bg-white/20 text-white hover:bg-teal-500 transition-all font-bold">+</button>
+                      className="w-8 h-8 rounded-lg bg-white/20 text-white hover:bg-amber-600 transition-all font-bold">+</button>
                   </div>
                 </div>
               </div>
@@ -296,7 +296,7 @@ export default function RezervariPage() {
               {error && <p className="mt-3 text-red-400 text-sm text-center">{error}</p>}
 
               <button type="submit" disabled={loading}
-                className="mt-6 w-full py-3 bg-orange-500 hover:bg-orange-400 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
+                className="mt-6 w-full py-3 bg-amber-600 hover:bg-amber-500 disabled:bg-white/10 disabled:text-white/30 text-white font-semibold rounded-xl transition-all flex items-center justify-center gap-2">
                 {loading ? (
                   <>
                     <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
@@ -313,15 +313,15 @@ export default function RezervariPage() {
           {/* ── SUCCESS ── */}
           {step === 'success' && (
             <div className="text-center py-6">
-              <div className="w-16 h-16 bg-teal-500 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-white font-bold">
+              <div className="w-16 h-16 bg-amber-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl text-white font-bold">
                 ✓
               </div>
               <h2 className="text-2xl font-bold text-white mb-2">Rezervare confirmată!</h2>
               <p className="text-white/60 mb-1">{selectedDate && formatDateDisplay(selectedDate)} · {selectedTime}</p>
-              <p className="text-white/60 mb-6">Vei primi o confirmare pe email.</p>
+              <p className="text-white/60 mb-6">Te vom contacta la telefon pentru confirmare.</p>
               <div className="flex flex-col sm:flex-row gap-3 justify-center">
                 <button onClick={resetForm}
-                  className="px-6 py-3 bg-teal-500 hover:bg-teal-400 text-white font-semibold rounded-xl transition-all">
+                  className="px-6 py-3 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-xl transition-all">
                   Rezervare nouă
                 </button>
                 <Link href="/"

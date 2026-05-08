@@ -18,7 +18,7 @@ type FiltruStatus = 'toate' | 'în așteptare' | 'confirmat' | 'respins'
 
 const STATUS_STYLE: Record<string, string> = {
   'în așteptare': 'bg-orange-500/20 text-orange-300 border-orange-500/30',
-  'confirmat':    'bg-teal-500/20 text-teal-300 border-teal-500/30',
+  'confirmat':    'bg-amber-600/20 text-amber-300 border-amber-600/30',
   'respins':      'bg-red-500/20 text-red-300 border-red-500/30',
 }
 
@@ -32,7 +32,12 @@ function formatOra(ora: string) {
   return ora.slice(0, 5)
 }
 
+const ADMIN_PASSWORD = 'vibe2026'
+
 export default function AdminPage() {
+  const [autentificat, setAutentificat] = useState(false)
+  const [parola, setParola] = useState('')
+  const [parolaGresita, setParolaGresita] = useState(false)
   const [rezervari, setRezervari] = useState<Rezervare[]>([])
   const [loading, setLoading] = useState(true)
   const [filtru, setFiltru] = useState<FiltruStatus>('toate')
@@ -90,14 +95,60 @@ export default function AdminPage() {
     'respins':      rezervari.filter(r => r.status === 'respins').length,
   }
 
+  if (!autentificat) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 flex items-center justify-center p-4">
+        <div className="w-full max-w-sm">
+          <div className="text-center mb-8">
+            <p className="text-4xl mb-3">☕</p>
+            <h1 className="text-2xl font-bold text-white mb-1">Panou Admin</h1>
+            <p className="text-amber-400 text-sm">Vibe Caffè · Acces restricționat</p>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault()
+              if (parola === ADMIN_PASSWORD) {
+                setAutentificat(true)
+              } else {
+                setParolaGresita(true)
+                setParola('')
+              }
+            }}
+            className="bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 p-6 shadow-2xl"
+          >
+            <input
+              type="password"
+              placeholder="Parolă admin"
+              value={parola}
+              onChange={(e) => { setParola(e.target.value); setParolaGresita(false) }}
+              autoFocus
+              className={`w-full bg-white/10 border rounded-xl px-4 py-3 text-white placeholder-white/40 focus:outline-none transition-all mb-3 ${
+                parolaGresita ? 'border-red-400 focus:border-red-400' : 'border-white/20 focus:border-amber-500'
+              }`}
+            />
+            {parolaGresita && (
+              <p className="text-red-400 text-sm mb-3 text-center">Parolă incorectă. Încearcă din nou.</p>
+            )}
+            <button
+              type="submit"
+              className="w-full py-3 bg-amber-600 hover:bg-amber-500 text-white font-semibold rounded-xl transition-all"
+            >
+              Intră în panou
+            </button>
+          </form>
+        </div>
+      </main>
+    )
+  }
+
   return (
-    <main className="min-h-screen bg-gradient-to-br from-gray-900 via-teal-950 to-gray-900 p-4 py-12">
+    <main className="min-h-screen bg-gradient-to-br from-stone-900 via-amber-950 to-stone-900 p-4 py-12">
       <div className="max-w-6xl mx-auto">
 
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-white mb-1">Admin · Rezervări</h1>
-          <p className="text-teal-300">Vibe Caffè</p>
+          <p className="text-amber-300">Vibe Caffè</p>
         </div>
 
         {/* Filtre + Căutare */}
@@ -108,7 +159,7 @@ export default function AdminPage() {
               <button key={f} onClick={() => setFiltru(f)}
                 className={`px-3 py-1.5 rounded-lg text-sm font-medium transition-all border ${
                   filtru === f
-                    ? 'bg-teal-500 border-teal-400 text-white'
+                    ? 'bg-amber-600 border-amber-500 text-white'
                     : 'bg-white/10 border-white/20 text-white/70 hover:bg-white/20'
                 }`}>
                 {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -123,7 +174,7 @@ export default function AdminPage() {
             placeholder="Caută după nume..."
             value={cautare}
             onChange={(e) => setCautare(e.target.value)}
-            className="sm:ml-auto bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-white placeholder-white/40 focus:outline-none focus:border-teal-400 transition-all text-sm w-full sm:w-64"
+            className="sm:ml-auto bg-white/10 border border-white/20 rounded-xl px-4 py-2 text-white placeholder-white/40 focus:outline-none focus:border-amber-500 transition-all text-sm w-full sm:w-64"
           />
         </div>
 
@@ -180,7 +231,7 @@ export default function AdminPage() {
                       <div className="flex gap-2">
                         {r.status !== 'confirmat' && (
                           <button onClick={() => schimbaStatus(r.id, 'confirmat')} disabled={actiune === r.id}
-                            className="px-2 py-1 bg-teal-500/20 hover:bg-teal-500/40 text-teal-300 rounded-lg text-xs font-medium transition-all disabled:opacity-40">
+                            className="px-2 py-1 bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 rounded-lg text-xs font-medium transition-all disabled:opacity-40">
                             Confirmă
                           </button>
                         )}
@@ -227,7 +278,7 @@ export default function AdminPage() {
                 <div className="flex gap-2">
                   {r.status !== 'confirmat' && (
                     <button onClick={() => schimbaStatus(r.id, 'confirmat')} disabled={actiune === r.id}
-                      className="flex-1 py-2 bg-teal-500/20 hover:bg-teal-500/40 text-teal-300 rounded-xl text-sm font-medium transition-all disabled:opacity-40">
+                      className="flex-1 py-2 bg-amber-600/20 hover:bg-amber-600/40 text-amber-300 rounded-xl text-sm font-medium transition-all disabled:opacity-40">
                       Confirmă
                     </button>
                   )}

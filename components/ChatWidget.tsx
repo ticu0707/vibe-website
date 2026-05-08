@@ -110,7 +110,12 @@ function getChipsContextuale(text: string): ChipContextual[] | null {
 }
 
 // #1 — Quick reply chips inițiale
-const CHIPS = ['Vezi meniu', 'Recomandări', 'Rezervări', 'Program'];
+const CHIPS: ChipContextual[] = [
+  { label: 'Vezi meniu',  href: '/#menu' },
+  { label: 'Recomandări' },
+  { label: 'Rezervări',   href: '/rezervari' },
+  { label: 'Program' },
+];
 
 // Curăță markdown brut (##, **, *) și redă link-urile ca elemente clickabile
 function renderMessage(text: string): React.ReactNode {
@@ -319,15 +324,15 @@ export default function ChatWidget() {
             {/* #1 — Quick Reply Chips (doar după mesajul inițial) */}
             {chipsAfisate && mesaje.length === 1 && (
               <div className="flex flex-wrap gap-2 pt-1">
-                {CHIPS.map(chip => (
-                  <button
-                    key={chip}
-                    onClick={() => trimite(chip)}
-                    className="px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95"
-                  >
-                    {chip}
-                  </button>
-                ))}
+                {CHIPS.map(({ label, href }) => {
+                  const chipClass = "px-3 py-1.5 bg-white/10 hover:bg-teal-500/20 border border-white/20 hover:border-teal-400/60 text-white/80 hover:text-white text-xs rounded-xl transition-all active:scale-95";
+                  if (href) return (
+                    <Link key={label} href={href} className={chipClass} onClick={() => setDeschis(false)}>{label}</Link>
+                  );
+                  return (
+                    <button key={label} onClick={() => trimite(label)} className={chipClass}>{label}</button>
+                  );
+                })}
               </div>
             )}
 
